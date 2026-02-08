@@ -1,0 +1,137 @@
+-- [[vip walls ahnillator 9001]] (Feel free to edit and if you see an obfuscated version of this DO NOT TRUST IT) (BY rg_lfr_124)--
+local ScreenGui = Instance.new("ScreenGui")
+local MainFrame = Instance.new("Frame")
+local TitleBar = Instance.new("TextLabel")
+local DeleteButton = Instance.new("TextButton")
+local ResizeHandle = Instance.new("TextButton")
+local UICorner = Instance.new("UICorner")
+local UIStroke = Instance.new("UIStroke")
+
+-- UI Stuff
+ScreenGui.Name = "RGX_WallBreaker_Fixed"
+ScreenGui.Parent = game:GetService("CoreGui") 
+ScreenGui.ResetOnSpawn = false
+
+MainFrame.Name = "MainFrame"
+MainFrame.Parent = ScreenGui
+MainFrame.BackgroundColor3 = Color3.fromRGB(15, 15, 15)
+MainFrame.Position = UDim2.new(0.5, -150, 0.5, -50)
+MainFrame.Size = UDim2.new(0, 320, 0, 130)
+MainFrame.Active = true
+MainFrame.Draggable = true 
+
+UICorner.CornerRadius = UDim.new(0, 10)
+UICorner.Parent = MainFrame
+
+UIStroke.Parent = MainFrame
+UIStroke.Thickness = 2
+UIStroke.Color = Color3.fromRGB(255, 0, 0) -- Neon Red Border
+
+TitleBar.Name = "TitleBar"
+TitleBar.Parent = MainFrame
+TitleBar.BackgroundColor3 = Color3.fromRGB(25, 25, 25)
+TitleBar.Size = UDim2.new(1, 0, 0, 35)
+TitleBar.Font = Enum.Font.GothamBold
+TitleBar.Text = "No VIP walls by rg_lfr_124 on discord (supports arcade event)"
+TitleBar.TextColor3 = Color3.fromRGB(255, 255, 255)
+TitleBar.TextSize = 13
+TitleBar.ZIndex = 2
+
+DeleteButton.Name = "DeleteButton"
+DeleteButton.Parent = MainFrame
+DeleteButton.BackgroundColor3 = Color3.fromRGB(40, 0, 0) -- Solid Dark Red
+DeleteButton.Position = UDim2.new(0.05, 0, 0.45, 0)
+DeleteButton.Size = UDim2.new(0.9, 0, 0.4, 0)
+DeleteButton.Font = Enum.Font.GothamBold
+DeleteButton.Text = "ahnillate every vip wall"
+DeleteButton.TextColor3 = Color3.fromRGB(255, 255, 255) -- Pure White Text
+DeleteButton.TextSize = 16
+DeleteButton.ZIndex = 2
+DeleteButton.AutoButtonColor = true
+
+local ButtonCorner = Instance.new("UICorner")
+ButtonCorner.CornerRadius = UDim.new(0, 6)
+ButtonCorner.Parent = DeleteButton
+
+local ButtonStroke = Instance.new("UIStroke")
+ButtonStroke.Parent = DeleteButton
+ButtonStroke.Color = Color3.fromRGB(255, 50, 50)
+ButtonStroke.Thickness = 1
+
+ResizeHandle.Name = "ResizeHandle"
+ResizeHandle.Parent = MainFrame
+ResizeHandle.BackgroundTransparency = 1
+ResizeHandle.Position = UDim2.new(1, -20, 1, -20)
+ResizeHandle.Size = UDim2.new(0, 20, 0, 20)
+ResizeHandle.Text = "◢"
+ResizeHandle.TextColor3 = Color3.fromRGB(255, 0, 0)
+ResizeHandle.TextSize = 20
+ResizeHandle.ZIndex = 3
+
+-- [[ wall pathz ]] --
+local pathsToCheck = {
+    {"DefaultMap_SharedInstances", "VIPWalls", "Shared Map"},
+    {"ArcadeMap_SharedInstances", "VIPWalls", "Arcade Map"},
+    {"UFOMap_SharedInstances", "VIPWalls", "UFO Map"},
+    {"MoneyMap_SharedInstances", "VIPWalls", "Money Map"},
+    {"NukeMap_SharedInstances", "VIPWalls", "Nuke Map"}
+}
+
+local function findAndDestroy(pathData)
+    local locations = {workspace, game:GetService("ReplicatedStorage")}
+    local mapName = pathData[#pathData]
+    local found = false
+
+    for _, root in ipairs(locations) do
+        local current = root
+        for i = 1, #pathData - 1 do
+            if current then
+                current = current:FindFirstChild(pathData[i])
+            else
+                break
+            end
+        end
+
+        if current then
+            found = true
+            if current:IsA("BasePart") then
+                current:Destroy()
+            else
+                for _, obj in ipairs(current:GetDescendants()) do
+                    if obj:IsA("BasePart") then obj:Destroy() end
+                end
+            end
+            print("✅ GOOD NEWS " .. mapName .. " VIP Walls DELETED.")
+            break 
+        end
+    end
+end
+
+DeleteButton.MouseButton1Click:Connect(function()
+    DeleteButton.Text = "WIPING..."
+    DeleteButton.BackgroundColor3 = Color3.fromRGB(100, 0, 0)
+    for _, path in ipairs(pathsToCheck) do
+        findAndDestroy(path)
+    end
+    DeleteButton.Text = "wallz ahnillated"
+    task.wait(1.5)
+    DeleteButton.Text = "ahnillate vip wallz"
+    DeleteButton.BackgroundColor3 = Color3.fromRGB(40, 0, 0)
+end)
+
+-- [[ resize logic (w feature) ]] --
+local userInputService = game:GetService("UserInputService")
+local draggingResize = false
+
+ResizeHandle.MouseButton1Down:Connect(function() draggingResize = true end)
+userInputService.InputChanged:Connect(function(input)
+    if draggingResize and input.UserInputType == Enum.UserInputType.MouseMovement then
+        local mousePos = userInputService:GetMouseLocation()
+        local framePos = MainFrame.AbsolutePosition
+        local newSize = UDim2.new(0, math.max(280, mousePos.X - framePos.X), 0, math.max(110, mousePos.Y - framePos.Y - 36))
+        MainFrame.Size = newSize
+    end
+end)
+userInputService.InputEnded:Connect(function(input)
+    if input.UserInputType == Enum.UserInputType.MouseButton1 then draggingResize = false end
+end)
