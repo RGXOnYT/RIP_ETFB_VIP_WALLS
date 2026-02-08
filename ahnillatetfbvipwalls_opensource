@@ -1,63 +1,91 @@
--- [[vip walls ahnillator 9001]] (Feel free to edit and if you see an obfuscated version of this DO NOT TRUST IT) (BY rg_lfr_124)--
+-- [[ ANTI VIP wall BY RGX-275 (SYMMETRY EDITION) ]] --
 local ScreenGui = Instance.new("ScreenGui")
 local MainFrame = Instance.new("Frame")
 local TitleBar = Instance.new("TextLabel")
+local TitleCorner = Instance.new("UICorner")
+local TitlePadding = Instance.new("UIPadding")
 local DeleteButton = Instance.new("TextButton")
+local BtnCorner = Instance.new("UICorner")
 local ResizeHandle = Instance.new("TextButton")
-local UICorner = Instance.new("UICorner")
-local UIStroke = Instance.new("UIStroke")
+local SupportBar = Instance.new("TextLabel") -- Cloned Style of TitleBar
+local SupportCorner = Instance.new("UICorner")
+local SupportPadding = Instance.new("UIPadding")
+local MainCorner = Instance.new("UICorner")
+local MainStroke = Instance.new("UIStroke")
 
--- UI Stuff
-ScreenGui.Name = "RGX_WallBreaker_Fixed"
+-- UI Setup
+ScreenGui.Name = "RGX_WallBreaker_Mirror"
 ScreenGui.Parent = game:GetService("CoreGui") 
 ScreenGui.ResetOnSpawn = false
 
 MainFrame.Name = "MainFrame"
 MainFrame.Parent = ScreenGui
 MainFrame.BackgroundColor3 = Color3.fromRGB(15, 15, 15)
-MainFrame.Position = UDim2.new(0.5, -150, 0.5, -50)
-MainFrame.Size = UDim2.new(0, 320, 0, 130)
+MainFrame.Position = UDim2.new(0.5, -160, 0.5, -100)
+MainFrame.Size = UDim2.new(0, 320, 0, 200)
 MainFrame.Active = true
 MainFrame.Draggable = true 
 
-UICorner.CornerRadius = UDim.new(0, 10)
-UICorner.Parent = MainFrame
+MainCorner.CornerRadius = UDim.new(0, 10)
+MainCorner.Parent = MainFrame
 
-UIStroke.Parent = MainFrame
-UIStroke.Thickness = 2
-UIStroke.Color = Color3.fromRGB(255, 0, 0) -- Neon Red Border
+MainStroke.Parent = MainFrame
+MainStroke.Thickness = 2
+MainStroke.Color = Color3.fromRGB(255, 0, 0)
 
+-- [[ TOP TITLE BAR ]] --
 TitleBar.Name = "TitleBar"
 TitleBar.Parent = MainFrame
-TitleBar.BackgroundColor3 = Color3.fromRGB(25, 25, 25)
+TitleBar.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
 TitleBar.Size = UDim2.new(1, 0, 0, 35)
 TitleBar.Font = Enum.Font.GothamBold
-TitleBar.Text = "No VIP walls by rg_lfr_124 on discord (supports arcade event)"
+TitleBar.Text = "Anti VIP wall BY RGX-275 (ALL MAPS SUPPORTED)"
 TitleBar.TextColor3 = Color3.fromRGB(255, 255, 255)
-TitleBar.TextSize = 13
+TitleBar.TextScaled = true 
 TitleBar.ZIndex = 2
 
+TitleCorner.CornerRadius = UDim.new(0, 10)
+TitleCorner.Parent = TitleBar
+
+TitlePadding.Parent = TitleBar
+TitlePadding.PaddingLeft = UDim.new(0, 10)
+TitlePadding.PaddingRight = UDim.new(0, 10)
+
+-- [[ DELETE BUTTON ]] --
 DeleteButton.Name = "DeleteButton"
 DeleteButton.Parent = MainFrame
-DeleteButton.BackgroundColor3 = Color3.fromRGB(40, 0, 0) -- Solid Dark Red
-DeleteButton.Position = UDim2.new(0.05, 0, 0.45, 0)
-DeleteButton.Size = UDim2.new(0.9, 0, 0.4, 0)
+DeleteButton.BackgroundColor3 = Color3.fromRGB(60, 0, 0)
+DeleteButton.Position = UDim2.new(0.05, 0, 0.3, 0)
+DeleteButton.Size = UDim2.new(0.9, 0, 0.3, 0)
 DeleteButton.Font = Enum.Font.GothamBold
-DeleteButton.Text = "ahnillate every vip wall"
-DeleteButton.TextColor3 = Color3.fromRGB(255, 255, 255) -- Pure White Text
-DeleteButton.TextSize = 16
-DeleteButton.ZIndex = 2
+DeleteButton.Text = "ERASE ALL VIP WALLS"
+DeleteButton.TextColor3 = Color3.fromRGB(255, 255, 255)
+DeleteButton.TextScaled = true 
 DeleteButton.AutoButtonColor = true
 
-local ButtonCorner = Instance.new("UICorner")
-ButtonCorner.CornerRadius = UDim.new(0, 6)
-ButtonCorner.Parent = DeleteButton
+BtnCorner.CornerRadius = UDim.new(0, 8)
+BtnCorner.Parent = DeleteButton
 
-local ButtonStroke = Instance.new("UIStroke")
-ButtonStroke.Parent = DeleteButton
-ButtonStroke.Color = Color3.fromRGB(255, 50, 50)
-ButtonStroke.Thickness = 1
+-- [[ BOTTOM SUPPORT BAR (CLONE OF TITLE) ]] --
+SupportBar.Name = "SupportBar"
+SupportBar.Parent = MainFrame
+SupportBar.BackgroundColor3 = Color3.fromRGB(30, 30, 30) -- Match Title
+SupportBar.Position = UDim2.new(0, 0, 1, -35) -- Docked at bottom
+SupportBar.Size = UDim2.new(1, 0, 0, 35) -- Match Title Size
+SupportBar.Font = Enum.Font.GothamBold -- Match Title Font
+SupportBar.Text = "Emotional Support will appear here soon."
+SupportBar.TextColor3 = Color3.fromRGB(200, 200, 200)
+SupportBar.TextScaled = true 
+SupportBar.ZIndex = 2
 
+SupportCorner.CornerRadius = UDim.new(0, 10)
+SupportCorner.Parent = SupportBar
+
+SupportPadding.Parent = SupportBar
+SupportPadding.PaddingLeft = UDim.new(0, 10)
+SupportPadding.PaddingRight = UDim.new(0, 10)
+
+-- [[ RESIZE HANDLE ]] --
 ResizeHandle.Name = "ResizeHandle"
 ResizeHandle.Parent = MainFrame
 ResizeHandle.BackgroundTransparency = 1
@@ -66,9 +94,40 @@ ResizeHandle.Size = UDim2.new(0, 20, 0, 20)
 ResizeHandle.Text = "◢"
 ResizeHandle.TextColor3 = Color3.fromRGB(255, 0, 0)
 ResizeHandle.TextSize = 20
-ResizeHandle.ZIndex = 3
+ResizeHandle.ZIndex = 5
 
--- [[ wall pathz ]] --
+-- [[ VIBE LOGIC ]] --
+local messages = {
+    "the life of being a skid ain’t it?", "even scripts crash sometimes, it’s fine", "errors happen… you’re still valid",
+    "your exploit might fail, but you won’t", "keep coding, the lag won’t last forever", "respawn your vibes, you deserve full hp",
+    "try again… even the best scripts need retries", "sometimes being a skid is just… the journey, not the destination",
+    "syntax errors aren’t life errors", "even BaseParts fall sometimes", "don’t ragequit your soul",
+    "your Roblox character isn’t the only thing respawning", "lag happens, breathe", "even obfuscated scripts have secrets",
+    "if you’re feeling nil, remember you’re not null", "try/catch your feelings", "don’t let the executor shame you",
+    "your stack trace doesn’t define you", "sometimes you get 1 hp… sometimes you get full hp, it’s fine",
+    "keep grinding, even memory leaks heal", "debug your mood, not just your code", "even VIP walls get destroyed… and so do problems",
+    "don’t let the haters break your connection", "lag spikes don’t equal life spikes", "your scripts may be messy, but so is art",
+    "every failed execution is just a tutorial", "you’re more than your FPS", "even the best GUI needs resizing sometimes",
+    "don’t AFK on your feelings", "respawn, retry, revive", "Lua may judge you, but I don’t",
+    "your exploits can be messy… your heart shouldn’t be", "sometimes the sandbox bites, sometimes it hugs",
+    "keep your UDim2 in check, and your vibes too", "you’re valid even if your script errors out",
+    "infinite loops are fine… just don’t loop your despair", "even skids have style", "don’t let anyone lock your CoreGui",
+    "sometimes life is a delayed loadstring", "even broken code can be beautiful", "task.wait doesn’t mean wait forever",
+    "debug your emotions like you debug your scripts", "every WallBreaker was once a wall-builder"
+}
+
+task.spawn(function()
+    task.wait(2)
+    while true do
+        local msg = messages[math.random(1, #messages)]
+        for i = 0, 1, 0.1 do SupportBar.TextTransparency = i task.wait(0.03) end
+        SupportBar.Text = msg
+        for i = 1, 0, -0.1 do SupportBar.TextTransparency = i task.wait(0.03) end
+        task.wait(10)
+    end
+end)
+
+-- [[ WALL DESTRUCTION LOGIC ]] --
 local pathsToCheck = {
     {"DefaultMap_SharedInstances", "VIPWalls", "Shared Map"},
     {"ArcadeMap_SharedInstances", "VIPWalls", "Arcade Map"},
@@ -79,29 +138,15 @@ local pathsToCheck = {
 
 local function findAndDestroy(pathData)
     local locations = {workspace, game:GetService("ReplicatedStorage")}
-    local mapName = pathData[#pathData]
-    local found = false
-
     for _, root in ipairs(locations) do
         local current = root
         for i = 1, #pathData - 1 do
-            if current then
-                current = current:FindFirstChild(pathData[i])
-            else
-                break
-            end
+            if current then current = current:FindFirstChild(pathData[i]) else break end
         end
-
         if current then
-            found = true
-            if current:IsA("BasePart") then
-                current:Destroy()
-            else
-                for _, obj in ipairs(current:GetDescendants()) do
-                    if obj:IsA("BasePart") then obj:Destroy() end
-                end
+            if current:IsA("BasePart") then current:Destroy() else
+                for _, obj in ipairs(current:GetDescendants()) do if obj:IsA("BasePart") then obj:Destroy() end end
             end
-            print("✅ GOOD NEWS " .. mapName .. " VIP Walls DELETED.")
             break 
         end
     end
@@ -109,29 +154,22 @@ end
 
 DeleteButton.MouseButton1Click:Connect(function()
     DeleteButton.Text = "WIPING..."
-    DeleteButton.BackgroundColor3 = Color3.fromRGB(100, 0, 0)
-    for _, path in ipairs(pathsToCheck) do
-        findAndDestroy(path)
-    end
-    DeleteButton.Text = "wallz ahnillated"
+    for _, path in ipairs(pathsToCheck) do findAndDestroy(path) end
+    DeleteButton.Text = "WALLS WIPED 💀"
     task.wait(1.5)
-    DeleteButton.Text = "ahnillate vip wallz"
-    DeleteButton.BackgroundColor3 = Color3.fromRGB(40, 0, 0)
+    DeleteButton.Text = "ERASE ALL VIP WALLS"
 end)
 
--- [[ resize logic (w feature) ]] --
-local userInputService = game:GetService("UserInputService")
+-- [[ DYNAMIC RESIZE LOGIC ]] --
 local draggingResize = false
-
 ResizeHandle.MouseButton1Down:Connect(function() draggingResize = true end)
-userInputService.InputChanged:Connect(function(input)
+game:GetService("UserInputService").InputChanged:Connect(function(input)
     if draggingResize and input.UserInputType == Enum.UserInputType.MouseMovement then
-        local mousePos = userInputService:GetMouseLocation()
+        local mousePos = game:GetService("UserInputService"):GetMouseLocation()
         local framePos = MainFrame.AbsolutePosition
-        local newSize = UDim2.new(0, math.max(280, mousePos.X - framePos.X), 0, math.max(110, mousePos.Y - framePos.Y - 36))
-        MainFrame.Size = newSize
+        local newX = math.max(300, mousePos.X - framePos.X)
+        local newY = math.max(150, mousePos.Y - framePos.Y - 36)
+        MainFrame.Size = UDim2.new(0, newX, 0, newY)
     end
 end)
-userInputService.InputEnded:Connect(function(input)
-    if input.UserInputType == Enum.UserInputType.MouseButton1 then draggingResize = false end
-end)
+game:GetService("UserInputService").InputEnded:Connect(function(input) if input.UserInputType == Enum.UserInputType.MouseButton1 then draggingResize = false end end)
